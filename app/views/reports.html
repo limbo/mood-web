@@ -1,0 +1,7 @@
+<p>This is the reports view.</p>
+<p>count: {{data.length}}</p>
+<ul>
+    <li ng-repeat="row in data">
+        {{row._id.month}}/{{row._id.year}}: {{Math.round(row.average*10)/10}}
+    </li>
+</ul>
