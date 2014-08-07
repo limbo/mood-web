@@ -30,7 +30,18 @@ angular
             templateUrl: 'views/reports.html',
             controller: 'ReportsCtrl'
         })
+        .when('/login', {
+            templateUrl: 'views/login.html',
+            controller: 'AuthCtrl'
+        })
       .otherwise({
         redirectTo: '/'
       });
-  });
+  }).constant('AUTH_EVENTS', {
+        loginSuccess: 'auth-login-success',
+        loginFailed: 'auth-login-failed',
+        logoutSuccess: 'auth-logout-success',
+        sessionTimeout: 'auth-session-timeout',
+        notAuthenticated: 'auth-not-authenticated',
+        notAuthorized: 'auth-not-authorized'
+    });
