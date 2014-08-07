@@ -6,11 +6,29 @@
 <div ng-switch="period">
     <div ng-switch-when="day">
         <h3>Daily Report</h3>
+        <div ng-if="data">
         <ul>
-            <li ng-repeat="row in data">
+            <li ng-repeat="row in data |
+                offset: currentPage*itemsPerPage |
+                limitTo: itemsPerPage">
                 {{row._id.month}}/{{row._id.day}}/{{row._id.year}}: {{Math.round(row.average*10)/10}}
             </li>
         </ul>
+        <div id="pagination">
+            <ul>
+                <li ng-class="prevPageDisabled()">
+                    <a href ng-click="prevPage()">« Prev</a>
+                </li>
+                <li ng-repeat="n in range()"
+                    ng-class="{active: n == currentPage}">
+                    <a ng-click="setPage(n)">{{n+1}}</a>
+                </li>
+                <li ng-class="nextPageDisabled()">
+                    <a href ng-click="nextPage()">Next »</a>
+                </li>
+            </ul>
+        </div>
+        </div>
     </div>
     <div ng-switch-when="week">
         <h3>Weekly Report</h3>
@@ -29,3 +47,26 @@
         </ul>
     </div>
 </div>
+        <style>.disabled a {
+            pointer-events: none;
+            cursor: default;
+            color: #cccccc;
+        }
+        #pagination ul
+        {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            text-align: center;
+        }
+
+        #pagination ul li { display: inline; }
+
+        #pagination ul li a
+        {
+            text-decoration: none;
+            padding: .2em 1em;
+            color: #fff;
+            background-color: #036;
+        }
+        </style>
