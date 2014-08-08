@@ -10,7 +10,6 @@
 angular.module('moodWebApp')
     .controller('ReportsCtrl', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
         $scope.periods = ['day', 'week', 'month'];
-        $scope.Math = window.Math;
         $scope.itemsPerPage = 15;
         $scope.currentPage = 0;
         $scope.getReport = function(period) {

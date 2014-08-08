@@ -4,45 +4,35 @@
     <select ng-model="period" ng-change="data = getReport(period)" ng-options="period for period in periods"></select>
 </p>
 <div ng-switch="period">
-    <div ng-switch-when="day">
-        <h3>Daily Report</h3>
-        <div ng-if="data">
+    <h3 ng-switch-when="day">
+        Daily Report
+    </h3>
+    <h3 ng-switch-when="week">
+        Weekly Report
+    </h3>
+    <h3 ng-switch-when="month">
+        Monthly Report
+    </h3>
+</div>
+<div ng-if="data">
+    <ul>
+        <li ng-repeat="row in data |
+            offset: currentPage*itemsPerPage |
+            limitTo: itemsPerPage">
+            {{row | formatRow:period}}
+        </li>
+    </ul>
+    <div ng-if="pageCount() > 1" id="pagination">
         <ul>
-            <li ng-repeat="row in data |
-                offset: currentPage*itemsPerPage |
-                limitTo: itemsPerPage">
-                {{row._id.month}}/{{row._id.day}}/{{row._id.year}}: {{Math.round(row.average*10)/10}}
+            <li ng-class="prevPageDisabled()">
+                <a href ng-click="prevPage()">« Prev</a>
             </li>
-        </ul>
-        <div id="pagination">
-            <ul>
-                <li ng-class="prevPageDisabled()">
-                    <a href ng-click="prevPage()">« Prev</a>
-                </li>
-                <li ng-repeat="n in range()"
-                    ng-class="{active: n == currentPage}">
-                    <a ng-click="setPage(n)">{{n+1}}</a>
-                </li>
-                <li ng-class="nextPageDisabled()">
-                    <a href ng-click="nextPage()">Next »</a>
-                </li>
-            </ul>
-        </div>
-        </div>
-    </div>
-    <div ng-switch-when="week">
-        <h3>Weekly Report</h3>
-        <ul>
-            <li ng-repeat="row in data">
-                {{row._id.year}}, week {{row._id.week}}: {{Math.round(row.average*10)/10}}
+            <li ng-repeat="n in range()"
+                ng-class="{active: n == currentPage}">
+                <a ng-click="setPage(n)">{{n+1}}</a>
             </li>
-        </ul>
-    </div>
-    <div ng-switch-when="month">
-        <h3>Monthly Report</h3>
-        <ul>
-            <li ng-repeat="row in data">
-                {{row._id.month}}/{{row._id.year}}: {{Math.round(row.average*10)/10}}
+            <li ng-class="nextPageDisabled()">
+                <a href ng-click="nextPage()">Next »</a>
             </li>
         </ul>
     </div>
