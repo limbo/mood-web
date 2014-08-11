@@ -16,12 +16,14 @@ angular.module('moodWebApp')
         $scope.periods = ['day', 'week', 'month'];
         $scope.rowsPerPage = 5;
         $scope.currentPage = 0;
+        $scope.data = [];
+        $scope.period = 'day';
         $scope.getReport = function(period) {
             var uri = 'http://pebble-mood-restful.herokuapp.com/services/rating/report/' + period + '?authtoken=' + AuthService.getAuthToken();
+            $scope.data = [];
             $http.get(uri)
                 .success(function (data) {
                     console.log(data);
-                    $scope.data = {};
                     var dataByRows = [];
                     for (var i=0; i<data.length;i+=3) {
                         dataByRows.push({ratings: data.slice(i, i+3)});
@@ -31,6 +33,7 @@ angular.module('moodWebApp')
                     $scope.data = dataByRows;
                 });
         };
+        $scope.getReport($scope.period);
         /* jshint ignore:start */
 //        $scope.tableParams = new ngTableParams({
 //            page: 1,            // show first page

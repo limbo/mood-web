@@ -1,7 +1,17 @@
 <p>Currently showing data from the last year.</p>
 <p>
     Please select report period:
-    <select ng-model="period" ng-change="data = getReport(period)" ng-options="period for period in periods"></select>
+    <ul class="nav nav-pills">
+        <li ng-click="period='day'" class="active" id="day">
+            <a>Day</a>
+        </li>
+        <li ng-click="period='week'" id="week">
+            <a>Week</a>
+        </li>
+        <li ng-click="period='month'" id="month">
+            <a>Month</a>
+        </li>
+    </ul>
 </p>
 <div ng-switch="period">
     <h3 ng-switch-when="day">
@@ -14,7 +24,10 @@
         Monthly Report
     </h3>
 </div>
-<div ng-if="data">
+<div ng-if="data.length <= 0">
+    Loading...
+</div>
+<div ng-if="data.length > 0">
     <table id="report-data" class="table table-responsive">
         <tr ng-repeat="row in data |
             offset: (currentPage-1)*rowsPerPage |
@@ -42,6 +55,17 @@
         </ul>
     </div>
 </div>
+        <script>
+            // dynamically activate list items when clicked
+            $(".nav.nav-pills li").on("click",function(){
+                $(".nav.nav-pills li").removeClass("active");
+                $(this).addClass("active");
+                // set period and update report
+                var scope = angular.element(this).scope();
+                scope.period = this.id;
+                scope.getReport(scope.period);
+            });
+        </script>
         <style>
             #report-data td{
                 border-top: none;
