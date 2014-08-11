@@ -15,22 +15,19 @@
     </h3>
 </div>
 <div ng-if="data">
-    <table id="report-data" class="table table-bordered table-responsive">
+    <table id="report-data" class="table table-responsive">
         <tr ng-repeat="row in data |
             offset: (currentPage-1)*rowsPerPage |
             limitTo: rowsPerPage">
-            <td>
-                {{row.ratings[0] | formatLabel:period}}: {{row.ratings[0] | formatValue}}
-            </td>
-            <td ng-if="row.ratings[1]">
-                {{row.ratings[1] | formatLabel:period}}: {{row.ratings[1] | formatValue}}
-            </td>
-            <td ng-if="row.ratings[2]">
-                {{row.ratings[2] | formatLabel:period}}: {{row.ratings[2] | formatValue}}
+            <td ng-repeat="rating in row.ratings" class="text-center">
+                <div ng-class="{'report-value': true, 'value-high': (rating.average >= 7), 'value-mid': (rating.average >= 4 && rating.average <7)}">
+                    {{rating | formatValue}}
+                </div>
+                {{rating | formatLabel:period}}
             </td>
         </tr>
     </table>
-    <div ng-if="pageCount() > 1" id="pagination">
+    <div ng-if="pageCount() > 1" class=" text-center">
         <ul class="pagination">
             <li ng-class="prevPageDisabled()">
                 <a href ng-click="prevPage()">« Prev</a>
@@ -46,5 +43,33 @@
     </div>
 </div>
         <style>
+            #report-data td{
+                border-top: none;
+            }
             .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+            .report-value {
+                padding-top:1em;
+                text-align: center;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                margin-left:auto;
+                margin-right:auto;
+                box-shadow: -2px -2px 2px rgba(34,34,34,0.6);
+            }
+            .value-high {
+                background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, yellow 0%, orange 100%, red 95%);
+                background-image: -webkit-radial-gradient(45px 45px, circle cover, orange, red);
+                background-image: radial-gradient(45px 45px 45deg, circle cover, yellow 0%, orange 100%, red 95%);
+            }
+            .value-mid {
+                background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, yellow 0%, green 100%, cyan 95%);
+                background-image: -webkit-radial-gradient(45px 45px, circle cover, green, cyan);
+                background-image: radial-gradient(45px 45px 45deg, circle cover, yellow 0%, green 100%, cyan 95%);
+            }
+            .value-low {
+                background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, yellow 0%, blue 100%, purple 95%);
+                background-image: -webkit-radial-gradient(45px 45px, circle cover, blue, purple);
+                background-image: radial-gradient(45px 45px 45deg, circle cover, yellow 0%, blue 100%, purple 95%);
+            }
         </style>

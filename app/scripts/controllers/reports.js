@@ -14,7 +14,7 @@
 angular.module('moodWebApp')
     .controller('ReportsCtrl', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
         $scope.periods = ['day', 'week', 'month'];
-        $scope.rowsPerPage = 10;
+        $scope.rowsPerPage = 5;
         $scope.currentPage = 0;
         $scope.getReport = function(period) {
             var uri = 'http://pebble-mood-restful.herokuapp.com/services/rating/report/' + period + '?authtoken=' + AuthService.getAuthToken();
