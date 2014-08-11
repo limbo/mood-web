@@ -7,6 +7,8 @@
  * # moodWebApp
  *
  * Main module of the application.
+ * TODO: require authentication on reports
+ * TODO: add signup
  */
 angular
   .module('moodWebApp', [
@@ -15,7 +17,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch'
-  ])
+    ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

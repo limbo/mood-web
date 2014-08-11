@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * TODO: handle error codes.
+ */
 angular.module('moodWebApp')
 .factory('AuthService', function ($http, $cookieStore) {
     var authService = {};

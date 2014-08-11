@@ -15,21 +15,29 @@
     </h3>
 </div>
 <div ng-if="data">
-    <ul>
-        <li ng-repeat="row in data |
-            offset: currentPage*itemsPerPage |
-            limitTo: itemsPerPage">
-            {{row | formatRow:period}}
-        </li>
-    </ul>
+    <table id="report-data" class="table table-bordered table-responsive">
+        <tr ng-repeat="row in data |
+            offset: (currentPage-1)*rowsPerPage |
+            limitTo: rowsPerPage">
+            <td>
+                {{row.ratings[0] | formatLabel:period}}: {{row.ratings[0] | formatValue}}
+            </td>
+            <td ng-if="row.ratings[1]">
+                {{row.ratings[1] | formatLabel:period}}: {{row.ratings[1] | formatValue}}
+            </td>
+            <td ng-if="row.ratings[2]">
+                {{row.ratings[2] | formatLabel:period}}: {{row.ratings[2] | formatValue}}
+            </td>
+        </tr>
+    </table>
     <div ng-if="pageCount() > 1" id="pagination">
-        <ul>
+        <ul class="pagination">
             <li ng-class="prevPageDisabled()">
                 <a href ng-click="prevPage()">« Prev</a>
             </li>
             <li ng-repeat="n in range()"
                 ng-class="{active: n == currentPage}">
-                <a ng-click="setPage(n)">{{n+1}}</a>
+                <a ng-click="setPage(n)">{{n}}</a>
             </li>
             <li ng-class="nextPageDisabled()">
                 <a href ng-click="nextPage()">Next »</a>
@@ -37,26 +45,6 @@
         </ul>
     </div>
 </div>
-        <style>.disabled a {
-            pointer-events: none;
-            cursor: default;
-            color: #cccccc;
-        }
-        #pagination ul
-        {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-            text-align: center;
-        }
-
-        #pagination ul li { display: inline; }
-
-        #pagination ul li a
-        {
-            text-decoration: none;
-            padding: .2em 1em;
-            color: #fff;
-            background-color: #036;
-        }
+        <style>
+            .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
         </style>

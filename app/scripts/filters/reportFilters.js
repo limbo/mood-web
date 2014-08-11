@@ -9,15 +9,25 @@ function round1(x) {
 }
 
 angular.module('moodWebApp')
-    .filter('formatRow', function() {
+    .filter('formatLabel', function() {
         return function(row, period) {
+            var label = '';
             switch (period) {
                 case 'day':
-                    return row._id.month + '/' + row._id.day + '/' + row._id.year + ': '+ round1(row.average);
+                    label = row._id.month + '/' + row._id.day + '/' + row._id.year;
+                    break;
                 case 'week':
-                    return row._id.year + ', week ' + (row._id.week+1) + ': ' +  round1(row.average);
+                    label = row._id.year + ', week ' + (row._id.week+1);
+                    break;
                 case 'month':
-                    return monthName(row._id.month) + ' ' + row._id.year + ': ' + round1(row.average);
+                    label = monthName(row._id.month) + ' ' + row._id.year;
+                    break;
             }
+            return label;
+        };
+    })
+    .filter('formatValue', function() {
+        return function(row) {
+            return round1(row.average);
         };
     });
