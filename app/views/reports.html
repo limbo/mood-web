@@ -33,7 +33,10 @@
             offset: (currentPage-1)*rowsPerPage |
             limitTo: rowsPerPage">
             <td ng-repeat="rating in row.ratings" class="text-center">
-                <div ng-class="{'report-value': true, 'value-high': (rating.average >= 7), 'value-mid': (rating.average >= 4 && rating.average <7)}">
+                <div ng-class="{'report-value': true,
+                                'value-high': (rating.average >= 7),
+                                'value-mid': (rating.average >= 4 && rating.average <7),
+                                'value-low': (rating.average<4)}">
                     {{rating | formatValue}}
                 </div>
                 {{rating | formatLabel:period}}
