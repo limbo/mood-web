@@ -6,13 +6,21 @@ angular.module('moodWebApp')
         email: '',
         password: ''
     };
+    $scope.loginMessage = '';
+
+    $scope.setLoginMessage = function(msg) {
+        $scope.loginMessage = msg;
+    };
+
     $scope.login = function (credentials) {
         AuthService.login(credentials).then(function () {
+            $scope.setLoginMessage('Welcome back! Go see some reports or drink a cup of tea or something...');
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-            $scope.isAuthenticated = true;
+            $scope.setAuthState(true);
         }, function () {
+            $scope.setLoginMessage('Unknown email or password.');
             $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-            $scope.isAuthenticated = false;
+            $scope.setAuthState(false);
         });
     };
 });

@@ -45,7 +45,12 @@ angular
             controller: 'AuthCtrl',
             data: {authRequired: false}
         })
-      .otherwise({
+        .when('/signup', {
+            templateUrl: 'views/signup.html',
+            controller: 'UserCtrl',
+            data: {authRequired: false}
+        })
+        .otherwise({
         redirectTo: '/',
         data: {authRequired: false}
       });
@@ -62,12 +67,11 @@ angular
             console.log(event);
             console.log(next);
             if (!next || next.redirectTo || !next.data.authRequired) {
-                console.log('no log in');
                 $rootScope.$broadcast(AUTH_EVENTS.hideLoginForm);
             } else if (next.data.authRequired && !AuthService.isAuthenticated()) {
                 // user is not logged in
-                console.log('need to log in');
                 // event.preventDefault doesn't work in current version of ngRoute
+                // instead we use events to show the login form when necessary.
 //                event.preventDefault();
                 $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
             }

@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Sign In</h3>
+    </div>
+    <form class="panel-body" role="form" name="signupForm" ng-submit="signup(credentials)">
+        <p ng-if="signupMessage.length > 0" ng-class="{'alert': true, 'alert-success': isAuthenticated, 'alert-warning': !isAuthenticated}">
+            {{signupMessage}}
+        </p>
+
+        <p  ng-if="signupMessage.length <= 0">
+            Please enter email and password to create a new account. All fields are required.
+        </p>
+        <fieldset>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input class="form-control" type="email" id="email"
+                       ng-model="credentials.email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" id="password"
+                       ng-model="credentials.password" required>
+            </div>
+            <div class="form-group">
+                <label for="password-verify">Verify password</label>
+                <input class="form-control" type="password" id="password-verify"
+                       ng-model="credentials.verifyPassword" required>
+            </div>
+            <button type="submit" class="btn btn-default">Sign in</button>
+        </fieldset>
+    </form>
+</div>
