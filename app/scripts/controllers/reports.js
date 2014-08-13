@@ -34,18 +34,7 @@ angular.module('moodWebApp')
                 });
         };
         $scope.getReport($scope.period);
-        /* jshint ignore:start */
-//        $scope.tableParams = new ngTableParams({
-//            page: 1,            // show first page
-//            count: 10           // count per page
-//        }, {
-//            total: 0, // length of data
-//            getData: function($defer, params) {
-//                console.log("getData: " + $scope.data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-//                $defer.resolve($scope.data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-//            }
-//        });
-        /* jshint ignore:end */
+
         // pagination methods
         $scope.prevPage = function() {
             if ($scope.currentPage > 0) {

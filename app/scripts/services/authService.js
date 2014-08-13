@@ -20,6 +20,12 @@ angular.module('moodWebApp')
             });
     };
 
+    authService.logout = function () {
+        console.log('logging out...');
+        authService.authToken = null;
+        delete $cookieStore.authtoken;
+    };
+
     authService.isAuthenticated = function () {
         return (authService.authToken !== null);
     };

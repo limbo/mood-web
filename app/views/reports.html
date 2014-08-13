@@ -1,7 +1,7 @@
 <p>Currently showing data from the last year.</p>
 <p>
     Please select report period:
-    <ul class="nav nav-pills">
+    <ul class="nav nav-pills" id="reports-nav">
         <li ng-click="period='day'" class="active" id="day">
             <a>Day</a>
         </li>
@@ -58,45 +58,45 @@
         </ul>
     </div>
 </div>
-        <script>
-            // dynamically activate list items when clicked
-            $(".nav.nav-pills li").on("click",function(){
-                $(".nav.nav-pills li").removeClass("active");
-                $(this).addClass("active");
-                // set period and update report
-                var scope = angular.element(this).scope();
-                scope.period = this.id;
-                scope.getReport(scope.period);
-            });
-        </script>
-        <style>
-            #report-data td{
-                border-top: none;
-            }
-            .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
-            .report-value {
-                padding-top:1em;
-                text-align: center;
-                border-radius: 50%;
-                width: 50px;
-                height: 50px;
-                margin-left:auto;
-                margin-right:auto;
-                box-shadow: -2px -2px 2px rgba(34,34,34,0.6);
-            }
-            .value-high {
-                background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, yellow 0%, orange 100%, red 95%);
-                background-image: -webkit-radial-gradient(45px 45px, circle cover, orange, red);
-                background-image: radial-gradient(45px 45px 45deg, circle cover, yellow 0%, orange 100%, red 95%);
-            }
-            .value-mid {
-                background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, yellow 0%, green 100%, cyan 95%);
-                background-image: -webkit-radial-gradient(45px 45px, circle cover, green, cyan);
-                background-image: radial-gradient(45px 45px 45deg, circle cover, yellow 0%, green 100%, cyan 95%);
-            }
-            .value-low {
-                background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, yellow 0%, blue 100%, purple 95%);
-                background-image: -webkit-radial-gradient(45px 45px, circle cover, blue, purple);
-                background-image: radial-gradient(45px 45px 45deg, circle cover, yellow 0%, blue 100%, purple 95%);
-            }
-        </style>
+<script>
+    // dynamically activate list items when clicked
+    $("#reports-nav li").on("click",function(){
+        $("#reports-nav li").removeClass("active");
+        $(this).addClass("active");
+        // set period and update report
+        var scope = angular.element(this).scope();
+        scope.period = this.id;
+        scope.getReport(scope.period);
+    });
+</script>
+<style>
+    #report-data td{
+        border-top: none;
+    }
+    .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+    .report-value {
+        padding-top:1em;
+        text-align: center;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        margin-left:auto;
+        margin-right:auto;
+        box-shadow: -2px -2px 2px rgba(34,34,34,0.6);
+    }
+    .value-high {
+        background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, yellow 0%, orange 100%, red 95%);
+        background-image: -webkit-radial-gradient(45px 45px, circle cover, orange, red);
+        background-image: radial-gradient(45px 45px 45deg, circle cover, yellow 0%, orange 100%, red 95%);
+    }
+    .value-mid {
+        background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, yellow 0%, green 100%, cyan 95%);
+        background-image: -webkit-radial-gradient(45px 45px, circle cover, green, cyan);
+        background-image: radial-gradient(45px 45px 45deg, circle cover, yellow 0%, green 100%, cyan 95%);
+    }
+    .value-low {
+        background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, yellow 0%, blue 100%, purple 95%);
+        background-image: -webkit-radial-gradient(45px 45px, circle cover, blue, purple);
+        background-image: radial-gradient(45px 45px 45deg, circle cover, yellow 0%, blue 100%, purple 95%);
+    }
+</style>

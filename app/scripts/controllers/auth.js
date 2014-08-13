@@ -9,8 +9,10 @@ angular.module('moodWebApp')
     $scope.login = function (credentials) {
         AuthService.login(credentials).then(function () {
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+            $scope.isAuthenticated = true;
         }, function () {
             $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+            $scope.isAuthenticated = false;
         });
     };
 });

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="moodWebApp">
+  <body ng-app="moodWebApp" ng-controller="MetaCtrl">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -24,14 +24,16 @@
       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li class="active"><a ng-href="#">Home</a></li>
-            <li><a ng-href="#/login">Sign in</a></li>
-            <li><a ng-href="#/reports">Reports</a></li>
+            <li><a ng-if="!isAuthenticated" ng-href="#/login">Sign in</a></li>
+            <li ng-if="isAuthenticated"><a ng-click="logout()" ng-href="#/logout">Sign out</a></li>
+            <li><a ng-if="isAuthenticated" ng-href="#/reports">Reports</a></li>
             <li><a ng-href="#/about">About</a></li>
         </ul>
-        <h3 class="text-muted">moodWeb</h3>
+        <h3 class="text-muted">Mood Ratings</h3>
       </div>
 
-      <div ng-view=""></div>
+      <div login-dialog></div>
+      <div ng-if="!loginDialogVisible" ng-view=""></div>
 
       <div class="footer">
         <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
@@ -62,7 +64,6 @@
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/json3/lib/json3.js"></script>
-    <script src="bower_components/ng-table/ng-table.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/button.js"></script>
@@ -88,10 +89,12 @@
         <script src="scripts/services/authService.js"></script>
         <script src="scripts/filters/paginationFilters.js"></script>
         <script src="scripts/filters/reportFilters.js"></script>
+        <script src="scripts/directives/loginDialog.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/reports.js"></script>
         <script src="scripts/controllers/auth.js"></script>
+        <script src="scripts/controllers/meta.js"></script>
 
     <!-- endbuild -->
 </body>
