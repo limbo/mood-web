@@ -16,11 +16,11 @@ angular.module('moodWebApp')
         $scope.periods = ['day', 'week', 'month'];
         $scope.rowsPerPage = 5;
         $scope.currentPage = 0;
-        $scope.data = [];
+        $scope.data = null;
         $scope.period = 'day';
         $scope.getReport = function(period) {
             var uri = 'http://pebble-mood-restful.herokuapp.com/services/rating/report/' + period + '?authtoken=' + AuthService.getAuthToken();
-            $scope.data = [];
+            $scope.data = null;
             $http.get(uri)
                 .success(function (data) {
                     console.log(data);

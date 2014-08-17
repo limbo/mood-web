@@ -64,8 +64,6 @@ angular
         hideLoginForm: 'hide-login-form'
     }).run(function ($rootScope, AUTH_EVENTS, AuthService) {
         $rootScope.$on('$routeChangeStart', function (event, next) {
-            console.log(event);
-            console.log(next);
             if (!next || next.redirectTo || !next.data.authRequired) {
                 $rootScope.$broadcast(AUTH_EVENTS.hideLoginForm);
             } else if (next.data.authRequired && !AuthService.isAuthenticated()) {

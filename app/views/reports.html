@@ -24,10 +24,10 @@
         Monthly Report
     </h3>
 </div>
-<div ng-if="data.length <= 0">
+<div ng-if="!data">
     Loading...
 </div>
-<div ng-if="data.length > 0">
+<div ng-if="data && data.length > 0">
     <table id="report-data" class="table table-responsive">
         <tr ng-repeat="row in data |
             offset: (currentPage-1)*rowsPerPage |

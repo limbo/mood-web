@@ -1,9 +1,12 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Sign In</h3>
+        <h3 class="panel-title">Sign Up</h3>
     </div>
     <form class="panel-body" role="form" name="signupForm" ng-submit="signup(credentials)">
-        <p ng-if="signupMessage.length > 0" ng-class="{'alert': true, 'alert-success': isAuthenticated, 'alert-warning': !isAuthenticated}">
+        <p ng-if="created" class="alert alert-success">
+            Account created. Please proceed to <a ng-href="#/login">sign in</a>.
+        </p>
+        <p ng-if="!created && signupMessage.length > 0" class="alert alert-warning">
             {{signupMessage}}
         </p>
 
@@ -16,17 +19,34 @@
                 <input class="form-control" type="email" id="email"
                        ng-model="credentials.email" required>
             </div>
+            <div ng-show="signupForm.email.$dirty && signupForm.email.$invalid" class="alert alert-warning">
+                Bad email!
+            </div>
             <div class="form-group">
                 <label for="password">Password</label>
                 <input class="form-control" type="password" id="password"
-                       ng-model="credentials.password" required>
+                       ng-model="credentials.password" onblur="confirmPassword();" required>
             </div>
             <div class="form-group">
                 <label for="password-verify">Verify password</label>
                 <input class="form-control" type="password" id="password-verify"
-                       ng-model="credentials.verifyPassword" required>
+                       ng-model="credentials.verifyPassword" onblur="confirmPassword();" required>
             </div>
-            <button type="submit" class="btn btn-default">Sign in</button>
+            <fieldset my-attr="processing">
+                <button type="submit" class="btn btn-default">Sign Up</button>
+            </fieldset>
         </fieldset>
     </form>
 </div>
+<script type="text/javascript">
+    function confirmPassword() {
+        var input = document.getElementById("password-verify");
+        if ($("#password").val() !== input.value) {
+            input.setCustomValidity("Passwords do not match.");
+            return false;
+        } else {
+            input.setCustomValidity("");
+            return true;
+        };
+    };
+</script>
